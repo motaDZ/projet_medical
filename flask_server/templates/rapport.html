@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>rapport du fichier</title>
+ 
+ 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+ 
+ 
+</head>
+ 
+<body>
+        
+ 
+    <div class="container">
+        
+        {% for key in rapport %}
+        <div class = "table-responsive" style="display : inline-block; vertical-align: top">
+                <table class="table table-bordered ">
+                        <thead>
+                            <th> {{key}}</th>
+                        </thead>
+                        <tbody>
+                                {%for element in rapport[key]%}
+                                <tr><td>
+                                        {{element}}
+                                    </td></tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+        </div>
+        {% endfor %}
+        
+        
+        
+        
+        <footer class="footer">
+            <p>&copy; ISD 2018</p>
+        </footer>
+ 
+    </div>
+</body>
+ 
+
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/script.js"></script>
+
+</html>
