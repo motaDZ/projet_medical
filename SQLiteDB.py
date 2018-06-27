@@ -27,7 +27,24 @@ class SQLiteDB(GenericDB):
         return c.fetchone()# is not None
 
     def table_type(self, table=TABLE):
-        assert False
+        c = self.dbconn.cursor()
+        c.execute('PRAGMA table_info(' + table + ')')
+
+        tmp = []
+
+        for i, n, t, *_ in c.fetchall():
+            if t == 'INTEGER':
+                t = 'int'
+            elif t == 'REAL':
+                t = 'float'
+            elif t == 'TEXT':
+                t = 'string'
+            else:
+                t = ''
+
+            tmp.append( (n, t) )
+
+        return tmp
 
     def drop_table(self, table=TABLE):
         c = self.dbconn.cursor()
@@ -62,5 +79,6 @@ if __name__ == '__main__':
         sql.create_table([('ligne', int), ('autre', float)], 'coucou')
         sql.append_line([1, 2], 'coucou')
         sql.append_lines([[1, 2], [3, 4]], 'coucou')
+        print(sql.table_type('coucou'))
         print(sql.table_exist('coucou'))
         sql.drop_table('coucou')
