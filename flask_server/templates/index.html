@@ -20,13 +20,17 @@
         <div class="jumbotron">
             <h1>Projets tutorés - groupe médical 2</h1>
             <form method=post enctype=multipart/form-data action = "/excel_upload">
-                <input type=file name=file>
+                <input type=file name=file id="excel_file">
                 <input type=submit value=Upload>
               </form>
+              <button id="visualiser">visualiser le fichier</button>
+              
         </div>
  
         
- 
+        <div id="wrapper" class="container table table-bordered w-50 p-50" >
+
+        </div>
         <footer class="footer">
             <p>&copy; ISD 2018</p>
         </footer>
@@ -36,6 +40,9 @@
  
 
 <script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/xlsx.full.min.js"></script>
 <script src="../static/js/script.js"></script>
+
+
 
 </html>

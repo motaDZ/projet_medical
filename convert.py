@@ -1,4 +1,9 @@
 #!/usr/bin/python3.6
+#functions de conversion à passer à apply pour convertir les types:
+
+#string est le type par defaut
+
+#on a soit un cast, soit un remlacement par mediane ou moyenne ou valeur par defaut, ou bien une suppression de la ligne (correspond à un NaN)
 
 class conversion_parameters:
     def __init__(self,type_function, behaviour, default_value = None, true_value = "True", false_value = "False"):
@@ -9,8 +14,6 @@ class conversion_parameters:
         self.false_value = false_value
 
 #type_function est un nom des fonctions ci-dessous
-
-
 
 def convert_int (value, parameters):
 
@@ -53,3 +56,15 @@ def convert_bool(value, parameters):
                     return False
             else:
                 return None
+
+
+def converter(value, parameters):
+
+    try:
+        return parameters.type_function(value)
+    except:
+        if parameters.behaviour == "default_value":
+            return parameters.default_value
+        else:
+            return None
+

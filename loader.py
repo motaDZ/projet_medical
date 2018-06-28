@@ -40,6 +40,16 @@ def filter_sheet_columns(in_memory_excel_file , filter):
     return xl
 #takes in parameter the dataframe dictionary indexed by sheet names to process and the types dictionary, parses the data and returns successfully parsed data and unseccessful parsed data
 
+#prend en parametre un fichier, un sheet, un interval de lignes et de colonnes
+#retourne un dataframe indexé par la premiere ligne et contenant les données selectionnées
+
+
+def get_data_from_sheet(in_memory_excel_file, sheet_name,header_line, lines_number, columns_list):
+
+    df = pd.read_excel(in_memory_excel_file,sheet_name = sheet_name, header = header_line, usecols =  columns_list  )
+    return df.head(lines_number)
+#header is 0 indexed, data starts from that line
+#columns list is a list of integers  indexed to specify columns to parse
 
 
 def parse_dataframe(dataframe_dict, types_dict):
@@ -70,10 +80,3 @@ def parse_dataframe(dataframe_dict, types_dict):
         #(dataframe_dict[sheet]).dropna(inplace=True)
     #les types autorisés: int float string date.|time bool 
     #astype is useful only for clean data or from whatever to sitring
-
-
-#functions de conversion à passer à apply pour convertir les types:
-
-#string est le type par defaut
-
-#on a soit un cast, soit un remlacement par mediane ou moyenne ou valeur par defaut, ou bien une suppression de la ligne (correspond à un NaN)

@@ -1,6 +1,6 @@
 import json
 import os
-from flask import Flask, flash,render_template, request, redirect, url_for
+from flask import Flask, flash,render_template, request, redirect, url_for, session
 from werkzeug.utils import secure_filename
 
 
@@ -22,6 +22,7 @@ ALLOWED_EXTENSIONS = set(['xlsx', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app = Flask(__name__)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = "toto"
 
 def allowed_file(filename):
     return '.' in filename and \
@@ -59,6 +60,7 @@ def upload_file():
 
 @app.route('/rapport_fichier')
 def rapport_fichier():
+
     filename = request.args.get('filename')
 
     in_memory_file = loader_module.load_excel_file("./uploads/"+filename)
