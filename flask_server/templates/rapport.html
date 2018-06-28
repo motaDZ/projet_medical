@@ -3,29 +3,39 @@
  
 <head>
     <title>rapport du fichier</title>
- 
- 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
- 
- 
 </head>
- 
 <body>
         
  
     <div class="container">
-        
+        <button type="button" class="btn btn-info">Valider</button>
         {% for key in rapport %}
         <div class = "table-responsive" style="display : inline-block; vertical-align: top">
                 <table class="table table-bordered ">
                         <thead>
-                            <th> {{key}}</th>
+                            <th> Feuille : {{key}} </th>
+                            <th> Type de données </th>
+                            <th> Valeur par défaut </th>
                         </thead>
                         <tbody>
                                 {%for element in rapport[key]%}
-                                <tr><td>
+                                <tr>
+                                    <td>
                                         {{element}}
-                                    </td></tr>
+                                    </td>
+                                    <td>
+                                        <select id="monselect">
+                                            <option value="string" selected>String</option> 
+                                            <option value="entier">Entier</option>
+                                            <option value="reel">Reel</option>
+                                            <option value="date">Date</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input name={{element}} placeholder="DEFAULT_VALUE" value="">
+                                    </td>
+                                </tr>
                                 {% endfor %}
                         </tbody>
                     </table>
