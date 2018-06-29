@@ -15,27 +15,84 @@
     });
 });*/
 
+function to_json(workbook) {
+    var result = {};
+    workbook.SheetNames.forEach(function(sheetName) {
+        var roa = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+        if(roa.length > 0){
+            result[sheetName] = roa;
+        }
+    });
+    return result;
+}
+
+function print_sheet(json, sheet) {
+    var table = "<br /><b>Feuille: " + sheet + "</b><br /><br /> \
+                <table class='table table-bordered'> \
+                    <thead>"
+
+    c = 0; 
+    loop1:
+    for(var j in json[sheet]){
+        c++;
+        loop2:
+        for(var k in json[sheet][j]){
+            if (c == 2) break loop1;
+            table += "<th>" + k + "</th>"
+        }
+    }
+
+    table += "</thead> \
+              <tbody>"
+
+    c = 0; 
+    loop1:
+    for(var j in json[sheet]){
+        loop2:
+        c++;
+        table += "<tr>"
+        for(var k in json[sheet][j]){
+            if (c == 11) break loop1;
+            table += "<td>" + json[sheet][j][k] + "</td>"
+        }
+        table += "</tr>"
+    }
+
+    table += "</tbody> \
+            </table>"
+    
+    document.getElementById('sheets').innerHTML = table
+}
 
 $('#visualiser').click(function(e){
-    console.log('button clicked')
+    console.log('button clicked!')
     var reader = new FileReader();
     reader.readAsArrayBuffer(document.getElementById('excel_file').files[0]);
     console.log(reader)
     reader.onload = function(e) {
             var data = new Uint8Array(reader.result);
             var wb = XLSX.read(data,{type:'array'});
-            
-            var sheetNames = wb.SheetNames;
 
-            for (var i = 0; i < sheetNames.length; ++i) {
-                    var htmlstr = XLSX.write(wb,{sheet:sheetNames[i], type:'binary',bookType:'html'});
-                    $('#wrapper')[0].innerHTML += htmlstr;
-                }
-                
-                
+            json = to_json(wb)  
+
+            var buttons = document.createElement('div');
+                buttons.setAttribute("id", "buttons");
+            var sheets = document.createElement('div');
+                sheets.setAttribute("id", "sheets");
+                sheets.style.overflowX = "scroll";
+            $('#wrapper')[0].appendChild(buttons);
+            $('#wrapper')[0].appendChild(sheets);
+
+            for (let sheet in json){
+                var button = document.createElement('button');
+                    button.innerHTML = sheet;
+                    button.onclick = function(){
+                        print_sheet(json, sheet);
+                      };
+                document.getElementById('buttons').appendChild(button);
+            }
+
+            //$('#wrapper')[0].innerHTML += sheetNames
     }
 
-
-
-    
 });
