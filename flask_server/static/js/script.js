@@ -65,18 +65,19 @@ function print_sheet(json, sheet) {
 }
 
 $('#visualiser').click(function(e){
-    console.log('button clicked!')
     var reader = new FileReader();
     reader.readAsArrayBuffer(document.getElementById('excel_file').files[0]);
-    console.log(reader)
     reader.onload = function(e) {
             var data = new Uint8Array(reader.result);
             var wb = XLSX.read(data,{type:'array'});
 
-            json = to_json(wb)  
+            json = to_json(wb) 
+
+
 
             var buttons = document.createElement('div');
                 buttons.setAttribute("id", "buttons");
+                buttons.style.padding = "5px";
             var sheets = document.createElement('div');
                 sheets.setAttribute("id", "sheets");
                 sheets.style.overflowX = "scroll";
@@ -85,6 +86,8 @@ $('#visualiser').click(function(e){
 
             for (let sheet in json){
                 var button = document.createElement('button');
+                    button.className = "btn btn-primary";
+                    button.style.marginRight = "5px";
                     button.innerHTML = sheet;
                     button.onclick = function(){
                         print_sheet(json, sheet);

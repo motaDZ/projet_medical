@@ -9,52 +9,57 @@
         
     <form action="/parse_excel" method=post>
     <div class="container">
-        <button type="submit" class="btn btn-info">Valider</button>  
+        <br />
+        <button id="up" type="submit" class="btn btn-success">Valider</button>
+        <input type="hidden" name="file" value="{{file}}"> 
+
         {% for key in rapport %}
-        <div class = "table-responsive" style="display : inline-block; vertical-align: top">
-                <table class="table table-bordered ">
-                        <thead>
-                            <th> Feuille : {{key}} </th>
-                            <th> Type de données </th>
-                            <th>politique de correction </th>
-                            <th> Valeur par défaut </th>
-                            <th> considérer cette colonne </th>
-                        </thead>
-                        <tbody>
-                                {%for element in rapport[key]%}
-                                <tr>
-                                    <td>
-                                        {{element}}
-                                    </td>
-                                    <td>
-                                        <select id="type-colonne" name="{{key}}{{element}}type">
-                                            <option value="object" selected>String</option> 
-                                            <option value="int">Entier</option>
-                                            <option value="float">Reel</option>
-                                            <option value="bool">booléen</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select id="politique-correction" name="{{key}}{{element}}politique">
-                                            <option value="default_value" selected>valeur par defaut</option> 
-                                            <option value="delete">supprimer la ligne</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input name="{{key}}{{element}}default-value" placeholder="DEFAULT_VALUE">
-                                    </td>
-                                    <td style="text-align: center">
-                                        <input name="{{key}}{{element}}column-chosen" type="checkbox" value="True" checked >
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                        </tbody>
-                    </table>
+        <a href=#{{key}} class="btn btn-primary">{{key}}</a>
+        {% endfor %}
+        <br /><br />
+
+        {% for key in rapport %}
+        <a href="#up" class="btn btn-primary"></a>&#8657;</a><br />
+        <div id = "{{key}}" class = "table-responsive" style="display : inline-block; vertical-align: top">
+            <table class="table table-bordered ">
+                <thead>
+                    <th> Feuille : {{key}} </th>
+                    <th> Type de données </th>
+                    <th> Politique de correction </th>
+                    <th> Valeur par défaut </th>
+                    <th> Garder la colonne </th>
+                </thead>
+                <tbody>
+                        {%for element in rapport[key]%}
+                        <tr>
+                            <td>
+                                {{element}}
+                            </td>
+                            <td>
+                                <select id="type-colonne" name="{{key}}{{element}}type">
+                                    <option value="object" selected>Chaine de caractères</option> 
+                                    <option value="int64">Entier</option>
+                                    <option value="float64">Reel</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select id="politique-correction" name="{{key}}{{element}}politique">
+                                    <option value="default_value" selected>Valeur par defaut</option> 
+                                    <option value="mean">Moyenne</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input name="{{key}}{{element}}default-value" placeholder="DEFAULT_VALUE">
+                            </td>
+                            <td style="text-align: center">
+                                <input name="{{key}}{{element}}chosen" type="checkbox" value="True" checked >
+                            </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
         </div>
         {% endfor %}
-        
-        
-        
         
         <footer class="footer">
             <p>&copy; ISD 2018</p>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+    <title>Traitement réussie</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+    <form action="/" method=post>
+    <div class="container">
+
+        <br />
+        <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Sauvegardé avec succèes!</h4>
+        <p>Merci de bien vérifier le fichier dans le dossier downloads.</p>
+        <hr>
+        <p class="mb-0">Vous pouvez aussi trouver une copie du fichier dans SQLite DB.</p>
+        </div>
+
+        <br />
+        <button id="up" type="submit" class="btn btn-info">Accueil</button>
+        <br /><br />
+
+        <div class = "table-responsive" style="display : inline-block; vertical-align: top; overflow-x : scroll">
+            <table class="table table-bordered ">
+                <thead>
+                    <th> Feuille </th>
+                    <th> Aperçue </th>
+                </thead>
+                <tbody>
+                        {% for df in dictDF %}
+                        <tr>
+                            <td>
+                                {{ df[0] }}
+                            </td>
+                            <td>
+                                {{ df[1]|safe }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        </div>        
+        <footer class="footer">
+            <p>&copy; ISD 2018</p>
+        </footer>
+ 
+    </div>
+</form>
+</body>
+ 
+
+<script src="../static/js/jquery-3.3.1.min.js"></script>
+<script src="../static/js/script.js"></script>
+
+</html>

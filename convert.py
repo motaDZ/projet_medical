@@ -24,8 +24,13 @@ class conversion_parameters:
         self.false_value = false_value
     
     def to_json(self):
-        return json.dumps(self, default=lambda o: o.__dict__, 
-            sort_keys=True, indent=4)
+        #return json.dumps(self, default=lambda o: o.__dict__, 
+         #   sort_keys=True, indent=4)
+        return {
+            "type_function": self.type_function,
+            "behaviour": self.behaviour,
+            "default_value": self.default_value
+        }
 
 #type_function est un nom des fonctions ci-dessous
 

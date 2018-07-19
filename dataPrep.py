@@ -30,3 +30,6 @@ def describe(df):
 
 def inspectDF(df, rows=10):
     return df.head(rows)
+
+def processFile(df, json):
+        return True
